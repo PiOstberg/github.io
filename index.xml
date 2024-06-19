@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pi Östberg</title>
-    <link>https://argo.re/</link>
+    <link>https://portfolio.argo.re/</link>
     <description>Recent content on Pi Östberg</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Dec 2023 00:00:00 +0100</lastBuildDate>
-    <atom:link href="https://argo.re/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://portfolio.argo.re/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Beetlebot</title>
-      <link>https://argo.re/games/beetlebot/</link>
+      <link>https://portfolio.argo.re/games/beetlebot/</link>
       <pubDate>Fri, 22 Dec 2023 00:00:00 +0100</pubDate>
-      <guid>https://argo.re/games/beetlebot/</guid>
+      <guid>https://portfolio.argo.re/games/beetlebot/</guid>
       <description>Clear out the ant infestation using the latest in robot beetle technology</description>
     </item>
   </channel>

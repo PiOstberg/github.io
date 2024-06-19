@@ -1,4 +1,4 @@
-baseURL = 'https://argo.re/'
+baseURL = 'https://portfolio.argo.re/'
 languageCode = 'en-us'
 title = 'Pi Östberg'
 theme = 'quint'

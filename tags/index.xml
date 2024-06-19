@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Pi Östberg</title>
-    <link>https://argo.re/tags/</link>
+    <link>https://portfolio.argo.re/tags/</link>
     <description>Recent content in Tags on Pi Östberg</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Dec 2023 00:00:00 +0100</lastBuildDate>
-    <atom:link href="https://argo.re/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://portfolio.argo.re/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43;</title>
-      <link>https://argo.re/tags/c&#43;&#43;/</link>
+      <link>https://portfolio.argo.re/tags/c&#43;&#43;/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://argo.re/tags/c&#43;&#43;/</guid>
+      <guid>https://portfolio.argo.re/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     <item>
       <title>Game</title>
-      <link>https://argo.re/tags/game/</link>
+      <link>https://portfolio.argo.re/tags/game/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://argo.re/tags/game/</guid>
+      <guid>https://portfolio.argo.re/tags/game/</guid>
       <description></description>
     </item>
   </channel>

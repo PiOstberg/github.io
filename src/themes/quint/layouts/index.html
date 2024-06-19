@@ -5,7 +5,7 @@
         <p>{{ .Content }}</p>
     </section>
     <main>
-        {{ $posts := where .Site.RegularPages "Section" "games" }}
+        {{ $posts := where .Site.RegularPages "Section" "posts" }}
         {{ $paginator := .Paginate ($posts) }}
         {{ partial "cards" . }}
         <!-- Pagination links -->

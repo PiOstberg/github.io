@@ -3,7 +3,7 @@
         <div class="card">
             <a href="{{ .Permalink }}">
                 {{ with .Params.image }}
-                    <img class="card-img" src="{{ . }}" alt="{{ $.Title }}">
+                    <img class="card-img" src="/images/thumb/{{ . }}" alt="{{ $.Title }}">
                 {{ else }}
                     {{ partial "randImage" . }}
                 {{ end }}

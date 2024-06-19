@@ -3,16 +3,18 @@
         <div class="card">
             <a href="{{ .Permalink }}">
                 {{ with .Params.image }}
-                    <img src="{{ . }}" alt="{{ $.Title }}">
+                    <img class="card-img" src="{{ . }}" alt="{{ $.Title }}">
                 {{ else }}
                     {{ partial "randImage" . }}
                 {{ end }}
                 <div class="text">
                     <h2>{{ .Title }}</h2>
-                    <p class="small">{{ .Summary }}
-</p>
-                </a>
-            </div>
+                    <p class="small">{{ .Summary }}</p>
+                </div>
+            </a>
+            {{ range .Params.tags }}
+                <a href="/tags/{{ . }}"><img src="https://img.shields.io/badge/{{ . }}-EEEEEE"></a>
+            {{ end }}
         </div>
     {{ end }}
 </div>

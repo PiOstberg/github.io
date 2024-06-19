@@ -11,15 +11,16 @@ a:hover, a:focus {
     color: var(--primary-text);
 }
 
-.card > a > img {
+.card > a > .card-img {
     top: 0px;
     position: relative;
     transition: top 0.3s ease-out, transform 0.3s ease-out, filter 0.3s ease-out;
 }
 
-.card:hover > a > img {
+.card:hover > a > .card-img {
     top: -0.4rem;
     transform: 
+        scale( 104% )
         perspective(22rem) 
         rotate3d( 0, 1, 0, calc( var(--mouse-x, 0) *  0.1deg ) )
         rotate3d( 1, 0, 0, calc( var(--mouse-y, 0) * -0.1deg ) );

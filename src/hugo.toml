@@ -1,0 +1,31 @@
+baseURL = 'https://argo.re/'
+languageCode = 'en-us'
+title = 'Pi Östberg'
+theme = 'quint'
+summaryLength = 1
+
+[[menus.main]]
+name = 'GitHub'
+url = 'https://github.com/victoriadrake/hugo-theme-quint'
+
+[params]
+    css = ["css/custom.css"]
+    icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png'
+
+[markup.goldmark.renderer]
+    unsafe = true
+
+[[params.social]]
+    url = "https://github.com/argoreofficial"
+    icon = "https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white"
+    name = "Github"
+
+[[params.social]]
+    url = "https://itch.io/argore"
+    icon = "https://img.shields.io/badge/Itch.io-%23FA5C5C.svg?logo=Itch.io&logoColor=white"
+    name = "Itch.io"
+
+[[params.social]]
+    url = "mailto:ostbergpi@gmail.com"
+    icon = "https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white"
+    name = "Email"

@@ -2,10 +2,14 @@
     <div class="logo">
         <a href="{{ .Site.Home.Permalink }}">
             <img src="/images/logo.png" alt="Site Logo">
-
         </a>
     </div>
     <nav>
+        <div class="social-media">
+            {{ range site.Params.social}}
+            <a href="{{ .url }}"><img src="{{ .icon }}" alt="{{ .name }}"></a>
+            {{ end }}
+        </div>
         <ul>
             {{- range site.Menus.main }}
             <li><a href="{{ .URL }}">{{ .Name }}</a></li>

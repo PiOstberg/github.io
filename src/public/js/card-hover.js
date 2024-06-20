@@ -27,9 +27,23 @@ function logKey(e) {
     // mouse position minus elm position is mouseposition relative to element:
     root.style.setProperty('--mouse-x', m_posx-e_posx);
     root.style.setProperty('--mouse-y', m_posy-e_posy);
-
 }
 
 document.querySelectorAll('div.card').forEach(function(item) {
     item.addEventListener("mousemove", logKey);
+});
+
+
+const header = document.querySelector( "header" );
+window.addEventListener("scroll", () => {
+    root.style.setProperty('--scroll-y', window.scrollY);
+
+    if ( window.scrollY > header.clientHeight )
+    {
+        //header.style.backgroundColor = 'rgba(17,17,17,0.9)';
+    }
+    else
+    {
+        //header.style.backgroundColor = 'transparent';
+    }
 });

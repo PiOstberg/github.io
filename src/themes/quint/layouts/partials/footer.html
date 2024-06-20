@@ -1,9 +1,4 @@
 <footer>
-    <div class="social-media">
-        {{ range site.Params.social}}
-        <a href="{{ .url }}"><img src="{{ .icon }}" alt="{{ .name }}"></a>
-        {{ end }}
-    </div>
     <div class="logo">
         <a href="{{ .Site.Home.Permalink }}">
             <img src="/images/logo.png" alt="Site Logo">

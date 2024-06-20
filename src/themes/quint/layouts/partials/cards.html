@@ -13,7 +13,7 @@
                 </div>
             </a>
             {{ range .Params.tags }}
-                <a href="/tags/{{ . }}"><img src="https://img.shields.io/badge/{{ . }}-EEEEEE"></a>
+                <a href="/tags/{{ lower . }}"><img src="https://img.shields.io/badge/{{ . }}-EEEEEE"></a>
             {{ end }}
         </div>
     {{ end }}

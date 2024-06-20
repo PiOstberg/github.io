@@ -4,10 +4,6 @@ title = 'Pi Östberg'
 theme = 'quint'
 summaryLength = 1
 
-[[menus.main]]
-name = 'GitHub'
-url = 'https://github.com/victoriadrake/hugo-theme-quint'
-
 [params]
     css = ["css/custom.css"]
     icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png'
@@ -21,7 +17,7 @@ url = 'https://github.com/victoriadrake/hugo-theme-quint'
     name = "Github"
 
 [[params.social]]
-    url = "https://itch.io/argore"
+    url = "https://argore.itch.io"
     icon = "https://img.shields.io/badge/Itch.io-%23FA5C5C.svg?logo=Itch.io&logoColor=white"
     name = "Itch.io"
 
@@ -29,3 +25,8 @@ url = 'https://github.com/victoriadrake/hugo-theme-quint'
     url = "mailto:ostbergpi@gmail.com"
     icon = "https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white"
     name = "Email"
+
+[[params.social]]
+    url = "https://www.linkedin.com/in/pi-östberg/"
+    icon = "https://img.shields.io/badge/Linkedin-%230077B5.svg?logo=linkedin&logoColor=white"
+    name = "Linkedin"

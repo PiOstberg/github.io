@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Pi Östberg</title>
+    <link>https://portfolio.argo.re/tags/</link>
+    <description>Recent content in Tags on Pi Östberg</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0100</lastBuildDate>
+    <atom:link href="https://portfolio.argo.re/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://portfolio.argo.re/tags/c&#43;&#43;/</link>
+      <pubDate>Fri, 14 Jun 2024 00:00:00 +0100</pubDate>
+      <guid>https://portfolio.argo.re/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Engine</title>
+      <link>https://portfolio.argo.re/tags/engine/</link>
+      <pubDate>Fri, 14 Jun 2024 00:00:00 +0100</pubDate>
+      <guid>https://portfolio.argo.re/tags/engine/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Game</title>
+      <link>https://portfolio.argo.re/tags/game/</link>
+      <pubDate>Fri, 17 May 2024 00:00:00 +0100</pubDate>
+      <guid>https://portfolio.argo.re/tags/game/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>UnrealEngine5</title>
+      <link>https://portfolio.argo.re/tags/unrealengine5/</link>
+      <pubDate>Fri, 17 May 2024 00:00:00 +0100</pubDate>
+      <guid>https://portfolio.argo.re/tags/unrealengine5/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

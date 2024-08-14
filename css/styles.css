@@ -313,7 +313,7 @@ footer .logo p {
 
 @media (min-width: 641px) {
     .hero {
-        min-height: 300px;
+        min-height: 200px;
     }
 
     .hero h1 {

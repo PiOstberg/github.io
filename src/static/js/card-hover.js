@@ -1,5 +1,16 @@
 const root = document.documentElement;
 
+window.onload = function() {            
+    function doFunnyThing() {
+        var time = document.timeline.currentTime / 1000;
+        if( time > 15 )
+        {
+            document.getElementsByTagName("body")[0].style.transform = "rotate(" + ((time-15)/20) + "deg)";
+        }
+    }
+    setInterval(doFunnyThing, 1);
+}
+
 // https://stackoverflow.com/a/16156057
 function logKey(e) {
     var m_posx = 0, m_posy = 0, e_posx = 0, e_posy = 0,

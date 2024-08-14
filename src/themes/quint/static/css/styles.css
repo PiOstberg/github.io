@@ -19,16 +19,13 @@
     }
 }
 
-
-/* Font Faces */
-
 /* Base Elements Styles */
 html {
     background-color: var(--primary-bg);
 }
 
 /* background grid */
-body::before {
+html::before {
     content: "";
     position: fixed;
     width: 200%;
@@ -49,6 +46,8 @@ body {
     min-height: 100vh;
     margin: 0 auto;
     line-height: 1.6;
+    
+    overflow-x:hidden;
 }
 
 a, a:visited {

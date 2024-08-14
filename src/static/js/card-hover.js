@@ -1,16 +1,23 @@
 const root = document.documentElement;
 
-window.onload = function() {            
-    function doFunnyThing() {
-        var time = (document.timeline.currentTime / 1000) - 15;
-        if( time > 0 )
-        {
-            var rot = time / 20;
-            var scale = time / 90;
-            document.getElementsByTagName("body")[0].style.transform = "rotate(" + (rot) + "deg) scale( " + Math.max( 100 - scale, 0 ) + "% )";
+if( !document.getElementsByTagName("main")[0].classList.contains("post") )
+{
+    window.onload = function() {            
+        function doFunnyThing() {
+            var time = (document.timeline.currentTime / 1000) - 15;
+            if( time > 0 )
+            {
+                var rot = time / 20;
+                var scale = time / 90;
+                document.getElementsByTagName("body")[0].style.transform = "rotate(" + (rot) + "deg) scale( " + Math.max( 100 - scale, 0 ) + "% )";
+            }
         }
+        setInterval(doFunnyThing, 1);
     }
-    setInterval(doFunnyThing, 1);
+}
+else
+{
+    console.log("post page, ignoring secret...");
 }
 
 // https://stackoverflow.com/a/16156057

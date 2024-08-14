@@ -27,12 +27,7 @@ a:hover, a:focus {
 .card > a > .card-img {
     top: 0px;
     position: relative;
-    
-    outline-width: 1px;
-    outline-style: solid;
-    outline-color: rgba(255,255,255,0.2);
-    
-    transition: top 0.3s ease-out, transform 0.3s ease-out, filter 0.3s ease-out, outline-style 0.3s ease-out;
+    transition: top 0.3s ease-out, transform 0.3s ease-out, filter 0.3s ease-out;
 }
 
 .card:hover > a > .card-img {
@@ -44,18 +39,4 @@ a:hover, a:focus {
         rotate3d( 1, 0, 0, calc( var(--mouse-y, 0) * -0.1deg ) );
     z-index: 100;
     filter: drop-shadow(0 0.4rem 14px #111111);
-    
-    outline-style: dashed;
-}
-
-.card h2 {
-    margin: 0;
-}
-
-.subtitle {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.card-tag-container {
-    padding: 0 1rem;
 }

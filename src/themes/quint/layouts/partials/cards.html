@@ -12,9 +12,11 @@
                     <p class="small">{{ .Summary }}</p>
                 </div>
             </a>
-            {{ range .Params.tags }}
-                <a href="/tags/{{ lower . }}"><img src="https://img.shields.io/badge/{{ . }}-EEEEEE"></a>
-            {{ end }}
+            <div class="card-tag-container">
+                {{ range .Params.tags }}
+                    <a href="/tags/{{ lower . }}"><img src="https://img.shields.io/badge/{{ . }}-EEEEEE"></a>
+                {{ end }}
+            </div>
         </div>
     {{ end }}
 </div>

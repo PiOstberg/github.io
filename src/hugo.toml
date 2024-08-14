@@ -4,9 +4,11 @@ title = 'Pi Östberg'
 theme = 'quint'
 summaryLength = 1
 
+
 [params]
     css = ["css/custom.css"]
     icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png&style=for-the-badge'
+    description = 'Systems & Engine Programmer'
 
 [markup.goldmark.renderer]
     unsafe = true

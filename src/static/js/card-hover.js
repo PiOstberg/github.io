@@ -2,10 +2,12 @@ const root = document.documentElement;
 
 window.onload = function() {            
     function doFunnyThing() {
-        var time = document.timeline.currentTime / 1000;
-        if( time > 15 )
+        var time = (document.timeline.currentTime / 1000) - 15;
+        if( time > 0 )
         {
-            document.getElementsByTagName("body")[0].style.transform = "rotate(" + ((time-15)/20) + "deg)";
+            var rot = time / 20;
+            var scale = time / 90;
+            document.getElementsByTagName("body")[0].style.transform = "rotate(" + (rot) + "deg) scale( " + Math.max( 100 - scale, 0 ) + "% )";
         }
     }
     setInterval(doFunnyThing, 1);

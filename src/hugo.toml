@@ -6,27 +6,27 @@ summaryLength = 1
 
 [params]
     css = ["css/custom.css"]
-    icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png'
+    icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png&style=for-the-badge'
 
 [markup.goldmark.renderer]
     unsafe = true
 
 [[params.social]]
     url = "https://github.com/argoreofficial"
-    icon = "https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white"
+    icon = "https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white&style=for-the-badge"
     name = "Github"
 
 [[params.social]]
     url = "https://argore.itch.io"
-    icon = "https://img.shields.io/badge/Itch.io-%23FA5C5C.svg?logo=Itch.io&logoColor=white"
+    icon = "https://img.shields.io/badge/Itch.io-%23FA5C5C.svg?logo=Itch.io&logoColor=white&style=for-the-badge"
     name = "Itch.io"
 
 [[params.social]]
     url = "mailto:ostbergpi@gmail.com"
-    icon = "https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white"
+    icon = "https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white&style=for-the-badge"
     name = "Email"
 
 [[params.social]]
     url = "https://www.linkedin.com/in/pi-östberg/"
-    icon = "https://img.shields.io/badge/Linkedin-%230077B5.svg?logo=linkedin&logoColor=white"
+    icon = "https://img.shields.io/badge/Linkedin-%230077B5.svg?logo=linkedin&logoColor=white&style=for-the-badge"
     name = "Linkedin"

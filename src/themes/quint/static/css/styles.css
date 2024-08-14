@@ -109,6 +109,11 @@ header {
     padding: 10px 20px;
 }
 
+header .logo {
+    min-width: 50px;
+    min-height: 50px;
+}
+
 header .logo img {
     height: 50px;
 }

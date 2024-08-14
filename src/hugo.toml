@@ -4,6 +4,7 @@ title = 'Pi Östberg'
 theme = 'quint'
 summaryLength = 1
 
+publishDir = "../"
 
 [params]
     css = ["css/custom.css"]
@@ -15,20 +16,20 @@ summaryLength = 1
 
 [[params.social]]
     url = "https://github.com/argoreofficial"
-    icon = "https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white&style=for-the-badge"
+    icon = "github"
     name = "Github"
 
 [[params.social]]
     url = "https://argore.itch.io"
-    icon = "https://img.shields.io/badge/Itch.io-%23FA5C5C.svg?logo=Itch.io&logoColor=white&style=for-the-badge"
+    icon = "itchdotio"
     name = "Itch.io"
 
 [[params.social]]
     url = "mailto:ostbergpi@gmail.com"
-    icon = "https://img.shields.io/badge/Gmail-D14836?logo=gmail&logoColor=white&style=for-the-badge"
+    icon = "gmail"
     name = "Email"
 
 [[params.social]]
     url = "https://www.linkedin.com/in/pi-östberg/"
-    icon = "https://img.shields.io/badge/Linkedin-%230077B5.svg?logo=linkedin&logoColor=white&style=for-the-badge"
+    icon = "linkedin"
     name = "Linkedin"

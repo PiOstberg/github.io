@@ -4,7 +4,7 @@ if( !document.getElementsByTagName("main")[0].classList.contains("post") )
 {
     window.onload = function() {            
         function doFunnyThing() {
-            var time = (document.timeline.currentTime / 1000) - 15;
+            var time = (document.timeline.currentTime / 1000) - 35;
             if( time > 0 )
             {
                 var rot = time / 20;

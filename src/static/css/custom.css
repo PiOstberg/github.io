@@ -57,7 +57,7 @@ a:hover, a:focus {
     outline-style: dashed;
 }
 
-.card h2 {
+.card h1 {
     margin: 0;
 }
 .card p {
@@ -79,4 +79,9 @@ a:hover, a:focus {
 
 .social-media a img {
     height: 50px;
+}
+
+
+.hero h2 {
+    font-size: 2.0em;
 }

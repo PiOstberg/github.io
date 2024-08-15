@@ -11,6 +11,14 @@ params:
 
 Beetlebot is a 4 level dungeon crawler. It was our first game project at PlaygroundSquad and made in the game engine TenGine.  
 I was tasked with building most of the core systems powering the game, such as the physics, collision detection, enemy pathfinding, as well as providing platform support for the PlayStation 5.
+<div class="video-container">
+    <div class="auto-resizable-iframe">
+        <div><iframe frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/G-td76fZ01g?si=Ianls67Zz_aBeXAx"></iframe></div>
+    </div>
+    <div class="auto-resizable-iframe">
+        <div><iframe frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/W5Uf3M3wklg?si=CCXDGPvOXxBachXq"></iframe></div>
+    </div>
+</div>
 
 ---
 

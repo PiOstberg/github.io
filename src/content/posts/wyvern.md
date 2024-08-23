@@ -55,6 +55,9 @@ Wyvern uses a configuration setup, where the developer implements the `wv::iAppl
 A typical application implementation looks something like this;
 
 ### MyApplication.h
+<details>
+<summary>Click to expand</summary>
+
 ```cpp
 #pragma once
 
@@ -72,8 +75,11 @@ public:
 };
 
 ```
+</details>
 
 ### MyApplication.cpp
+<details>
+<summary>Click to expand</summary>
 
 ```cpp
 bool cMyApplication::create( void )
@@ -133,4 +139,58 @@ bool cMyApplication::create( void )
 
     return true;
 }
+```
+</details>
+
+## Physics
+
+Wyvern uses the Jolt Physics Engine for real-time rigidbody physics.  
+Stress testing showed that it could handle about 6600 sphere bodies before going under 60 FPS. This is partly due to the not-optimal rendering however.
+
+![](/images/wyvern/physicsballs.png)
+
+## Reflection
+
+To allow for runtime scene object creation I developed a simple reflection system that takes advantage of static template variables.  
+It's something I did earlier in my Reflection project with functions, but with classes.
+
+Reflecting a class is as simple as using the `REFLECT_CLASS()` helper macro, and implementing the static `createInstance` and `createInstanceJson` functions.
+The macro expands into one line of code for you macro haters out there.
+
+Something that I might change is the functions, as they're currently required.  
+I would much rather have virtual functions that you override. That way you don't have to include `createInstanceJson` on classes that don't need it.
+
+A basic reflected class:
+```cpp
+#pragma once
+#include <wv/Reflection/Reflection.h>
+
+class cPrinter
+{
+public:
+    cPrinter()
+    {
+        printf( "a cPrinter was created\n" );
+    }
+
+    static cPrinter* createInstance    ( void )                  { return new cPrinter(); }
+    static cPrinter* createInstanceJson( nlohmann::json& _json ) { return new cPrinter(); }
+}
+
+REFLECT_CLASS( cPrinter );
+// expands to 
+// wv::ClassReflect<cPrinter> wv::ClassReflector<cPrinter>::creator{ "cPrinter" };
+```
+It also works on templated classes, although each template has to be reflected individually
+```cpp
+REFLECT_CLASS( cPrinter<int>   );
+REFLECT_CLASS( cPrinter<float> );
+REFLECT_CLASS( cPrinter<bool>  );
+```
+Creating an instance of a reflected class would then be done through the `cReflectionRegistry` class
+```cpp
+iSomeBaseClass* classObject1 = wv::cReflectionRegistry::createClassInstance( "cDerivedClass1" );
+iSomeBaseClass* classObject2 = wv::cReflectionRegistry::createClassInstance( "cDerivedClass2" );
+iSomeBaseClass* classObject3 = wv::cReflectionRegistry::createClassInstance( "cDerivedTemplate<bool>" );
+iSomeBaseClass* classObject4 = wv::cReflectionRegistry::createClassInstance( "cDerivedTemplate<char>" );
 ```

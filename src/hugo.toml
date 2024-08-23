@@ -7,6 +7,7 @@ summaryLength = 1
 publishDir = "../"
 
 [params]
+    email = 'ostbergpi@gmail.com'
     css = ["css/custom.css"]
     icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png&style=for-the-badge'
     description = 'Systems & Engine Programmer'

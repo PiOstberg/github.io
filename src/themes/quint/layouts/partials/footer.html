@@ -4,6 +4,7 @@
             <img src="/images/logo.png" alt="Site Logo">
         </a>
         <p>&copy; {{ now.Format "2006" }} {{ .Site.Title }}</p>
+        <a href="mailto:{{ site.Params.email }}"><p>{{ site.Params.email }}</p></a>
     </div>
     <nav>
         <ul>

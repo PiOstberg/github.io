@@ -1,6 +1,6 @@
 baseURL = 'https://portfolio.argo.re/'
 languageCode = 'en-us'
-title = 'Pi Östberg'
+title = 'Pi Portfolio'
 theme = 'quint'
 summaryLength = 1
 

@@ -22,6 +22,8 @@ th, td {
 Wyvern is a 3D game engine developed from scratch by me.  
 Its main goal is for me to learn about how engines function, but also to act as my main game engine because of my disappointment in already existing ones, such as Unity or Unreal Engine.
 
+[Demo of a slightly older version of Wyvern](https://argore.itch.io/wyvern-demo?password=psq)
+
 The source can be found on [the github repository](https://github.com/argoreofficial/wyvern). NDA bound platform-specific code is kept on a private server.  
 This page will only outline some core features and explanations for certain design decisions.
 

@@ -54,168 +54,54 @@ th, td {
   padding: 4px;
 }
 </style>
-<p>Wyvern is a 3D game engine developed from scratch by me.<br>
-Its main goal is for me to learn about how engines function, but also to act as my main game engine because of my disappointment in already existing ones, such as Unity or Unreal Engine.</p>
+<p>Wyvern is my personal 3D game engine that I am developing for two main reasons.</p>
+<ol>
+<li>To teach myself more about engine and system development.</li>
+<li>disappointment in already existing ones, such as Unity or Unreal Engine.</li>
+</ol>
+<p>While it obviously doesn&rsquo;t stand the test of immense power that those engines have, Wyvern allows me to more easily develop projects in the way I want to, that is, using actual code.</p>
 <p><a href="https://argore.itch.io/wyvern-demo?password=psq">Demo of a slightly older version of Wyvern</a></p>
-<p>The source can be found on <a href="https://github.com/argoreofficial/wyvern">the github repository</a>. NDA bound platform-specific code is kept on a private server.<br>
-This page will only outline some core features and explanations for certain design decisions.</p>
-<p>Libraries and frameworks Wyvern uses:</p>
+<p>The source can be found on <a href="https://github.com/argoreofficial/wyvern">the github repository</a>. NDA bound platform-specific code is kept on a private server.</p>
+<h3 id="libraries-and-frameworks-wyvern-uses">Libraries and frameworks Wyvern uses:</h3>
 <table>
 <thead>
 <tr>
-<th>Library</th>
-<th>Use</th>
-<th>Platforms</th>
+<th>GLFW</th>
+<th>SDL</th>
+<th>Assimp</th>
+<th>stb_image</th>
+<th>ImGUI</th>
+<th>JoltPhysics</th>
+<th>MiniAudio</th>
+<th>fkYAML</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://www.glfw.org">GLFW</a></td>
-<td>Window Handling</td>
-<td>Windows</td>
-</tr>
-<tr>
-<td><a href="https://www.libsdl.org">SDL</a></td>
-<td>Window Handling</td>
-<td>All</td>
-</tr>
-<tr>
-<td><a href="https://github.com/g-truc/glm">GLM</a></td>
-<td>Matrix Maths</td>
-<td>All</td>
-</tr>
-<tr>
-<td><a href="https://github.com/assimp/assimp">Assimp</a></td>
-<td>Model Parsing</td>
-<td>All</td>
-</tr>
-<tr>
-<td><a href="https://github.com/nothings/stb">stb_image</a></td>
-<td>Image Parsing</td>
-<td>All</td>
-</tr>
-<tr>
-<td><a href="https://github.com/ocornut/imgui">ImGUI</a></td>
+<td>Window<br>Handling</td>
+<td>Window<br>Handling</td>
+<td>Model<br>Parsing</td>
+<td>Image<br>Loading</td>
 <td>Debug UI</td>
-<td>All</td>
-</tr>
-<tr>
-<td><a href="https://github.com/jrouwe/JoltPhysics/">JoltPhysics</a></td>
 <td>Physics</td>
-<td>Windows</td>
-</tr>
-<tr>
-<td><a href="https://miniaud.io">MiniAudio</a></td>
 <td>Audio</td>
-<td>All</td>
-</tr>
-<tr>
-<td><a href="https://github.com/nlohmann/json">nlohmann::json</a></td>
-<td>json parsing</td>
-<td>All</td>
+<td>yaml<br>parsing</td>
 </tr>
 </tbody>
 </table>
-<h2 id="xmake-build-tool">XMake Build Tool</h2>
-<p>The first thing to talk about is the build tool. Wyvern uses <a href="https://xmake.io/">XMake</a>, an open source Lua based build tool.<br>
-It&rsquo;s my favourite build tool for a number of reasons, most notably because of how easy to use and set up it is.</p>
+<p>Wyvern also uses <strong><a href="https://xmake.io/">xmake</a></strong>, an open source Lua based build tool.</p>
 <h2 id="platforms">Platforms</h2>
-<p>The aim is to support Windows, Linux, Android, and some consoles (Nintendo 3DS, PlayStation, etc.). Currently it&rsquo;s only been tested on Windows and WASM.</p>
-<p>Using XMake I built up a relatively straight forward platforming-system that allows me to easily add more platforms and pick what it supports.
-Eg. Windows supports both GLFW and SDL, while WASM only supports SDL.</p>
+<p>Currently only Windows is actively maintained, but WASM has worked, and a barebones PSVita implementation exists (officially licensed software and hardware)</p>
 <h2 id="the-engine">The Engine</h2>
-<p>Wyvern uses a configuration setup, where the developer implements the <code>wv::iApplication</code> interface. This is used to set up and configure the engine and it&rsquo;s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.</p>
-<p>A typical application implementation looks something like this;</p>
-<h3 id="myapplicationh">MyApplication.h</h3>
-<details>
-<summary>Click to expand</summary>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#pragma once
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wv/Engine/Application.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">cMyApplication</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> wv<span style="color:#f92672">::</span>iApplication
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>	cMyApplication() { }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Inherited via iApplication
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">create</span> ( <span style="color:#66d9ef">void</span> ) <span style="color:#66d9ef">override</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>    ( <span style="color:#66d9ef">void</span> ) <span style="color:#66d9ef">override</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">destroy</span>( <span style="color:#66d9ef">void</span> ) <span style="color:#66d9ef">override</span>;
-</span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div></details>
-<h3 id="myapplicationcpp">MyApplication.cpp</h3>
-<details>
-<summary>Click to expand</summary>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> cMyApplication<span style="color:#f92672">::</span>create( <span style="color:#66d9ef">void</span> )
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>	wv<span style="color:#f92672">::</span>EngineDesc engineDesc;
-</span></span><span style="display:flex;"><span>	engineDesc.windowWidth  <span style="color:#f92672">=</span> <span style="color:#ae81ff">1280</span>;
-</span></span><span style="display:flex;"><span>	engineDesc.windowHeight <span style="color:#f92672">=</span> <span style="color:#ae81ff">960</span>;
-</span></span><span style="display:flex;"><span>	engineDesc.showDebugConsole <span style="color:#f92672">=</span> true;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// create device context
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	wv<span style="color:#f92672">::</span>ContextDesc ctxDesc;
-</span></span><span style="display:flex;"><span>	ctxDesc.deviceApi   <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>WV_DEVICE_CONTEXT_API_GLFW;
-</span></span><span style="display:flex;"><span>	ctxDesc.graphicsApi <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>WV_GRAPHICS_API_OPENGL;
-</span></span><span style="display:flex;"><span>	ctxDesc.graphicsApiVersion.major <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-</span></span><span style="display:flex;"><span>	ctxDesc.graphicsApiVersion.minor <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>    ctxDesc.name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Wyvern Sandbox&#34;</span>;
-</span></span><span style="display:flex;"><span>	ctxDesc.width  <span style="color:#f92672">=</span> engineDesc.windowWidth;
-</span></span><span style="display:flex;"><span>	ctxDesc.height <span style="color:#f92672">=</span> engineDesc.windowHeight;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	ctxDesc.allowResize <span style="color:#f92672">=</span> false;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	wv<span style="color:#f92672">::</span>iDeviceContext<span style="color:#f92672">*</span> deviceContext <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>iDeviceContext<span style="color:#f92672">::</span>getDeviceContext( <span style="color:#f92672">&amp;</span>ctxDesc );
-</span></span><span style="display:flex;"><span>	deviceContext<span style="color:#f92672">-&gt;</span>setSwapInterval( <span style="color:#ae81ff">0</span> ); <span style="color:#75715e">// disable vsync
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// create graphics device
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	wv<span style="color:#f92672">::</span>GraphicsDeviceDesc deviceDesc;
-</span></span><span style="display:flex;"><span>	deviceDesc.loadProc <span style="color:#f92672">=</span> deviceContext<span style="color:#f92672">-&gt;</span>getLoadProc();
-</span></span><span style="display:flex;"><span>	deviceDesc.pContext <span style="color:#f92672">=</span> deviceContext;
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	wv<span style="color:#f92672">::</span>iGraphicsDevice<span style="color:#f92672">*</span> graphicsDevice <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>iGraphicsDevice<span style="color:#f92672">::</span>createGraphicsDevice( <span style="color:#f92672">&amp;</span>deviceDesc );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	engineDesc.device.pContext  <span style="color:#f92672">=</span> deviceContext;
-</span></span><span style="display:flex;"><span>	engineDesc.device.pGraphics <span style="color:#f92672">=</span> graphicsDevice;
-</span></span><span style="display:flex;"><span>	engineDesc.device.pAudio    <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> wv<span style="color:#f92672">::</span>AudioDevice( <span style="color:#66d9ef">nullptr</span> );
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// set up modules
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    wv<span style="color:#f92672">::</span>cFileSystem<span style="color:#f92672">*</span> fileSystem <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> wv<span style="color:#f92672">::</span>cFileSystem();
-</span></span><span style="display:flex;"><span>	fileSystem<span style="color:#f92672">-&gt;</span>addDirectory( <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;res/&#34;</span> );
-</span></span><span style="display:flex;"><span>	fileSystem<span style="color:#f92672">-&gt;</span>addDirectory( <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;res/materials/&#34;</span> );
-</span></span><span style="display:flex;"><span>	fileSystem<span style="color:#f92672">-&gt;</span>addDirectory( <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;res/meshes/&#34;</span> );
-</span></span><span style="display:flex;"><span>	fileSystem<span style="color:#f92672">-&gt;</span>addDirectory( <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;res/shaders/&#34;</span> );
-</span></span><span style="display:flex;"><span>	fileSystem<span style="color:#f92672">-&gt;</span>addDirectory( <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;res/textures/&#34;</span> );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	engineDesc.systems.pFileSystem <span style="color:#f92672">=</span> fileSystem;
-</span></span><span style="display:flex;"><span>	engineDesc.systems.pShaderRegistry <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> wv<span style="color:#f92672">::</span>cShaderRegistry( engineDesc.systems.pFileSystem, graphicsDevice );
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// setup application state and scenes
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	wv<span style="color:#f92672">::</span>cApplicationState<span style="color:#f92672">*</span> appState <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> wv<span style="color:#f92672">::</span>cApplicationState();
-</span></span><span style="display:flex;"><span>	engineDesc.pApplicationState <span style="color:#f92672">=</span> appState;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	wv<span style="color:#f92672">::</span>cSceneRoot<span style="color:#f92672">*</span> scene <span style="color:#f92672">=</span> appState<span style="color:#f92672">-&gt;</span>loadScene( fileSystem, <span style="color:#e6db74">&#34;res/scenes/defaultScene.json&#34;</span> );
-</span></span><span style="display:flex;"><span>	appState<span style="color:#f92672">-&gt;</span>addScene( scene );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// create engine
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	m_pEngine <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> wv<span style="color:#f92672">::</span>cEngine( <span style="color:#f92672">&amp;</span>engineDesc );
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></details>
+<p>Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.</p>
 <h2 id="physics">Physics</h2>
-<p>Wyvern uses the Jolt Physics Engine for real-time rigidbody physics.<br>
-Stress testing showed that it could handle about 6600 sphere bodies before going under 60 FPS. This is partly due to the not-optimal rendering however.</p>
+<p>I chose to use Jolt Physics for real-time rigidbody physics. It&rsquo;s implemented under a farily shallow wrapper to avoid any library-specific code leaking into Engine or Application code.</p>
 <p><img src="/images/wyvern/physicsballs.png" alt=""></p>
 <h2 id="reflection">Reflection</h2>
-<p>To allow for runtime scene object creation I developed a simple reflection system that takes advantage of static template variables.<br>
-It&rsquo;s something I did earlier in my Reflection project with functions, but with classes.</p>
-<p>Reflecting a class is as simple as using the <code>REFLECT_CLASS()</code> helper macro, and implementing the static <code>createInstance</code> and <code>createInstanceJson</code> functions.
-The macro expands into one line of code for you macro haters out there.</p>
-<p>Something that I might change is the functions, as they&rsquo;re currently required.<br>
-I would much rather have virtual functions that you override. That way you don&rsquo;t have to include <code>createInstanceJson</code> on classes that don&rsquo;t need it.</p>
+<p>Since C++ doesn&rsquo;t have native class reflection I developed my own system that takes advantage of static template variables.</p>
+<p>Reflecting a class is as simple as using the <code>REFLECT_CLASS()</code> helper macro (which expands into actual code, <em>unlike a certain AAA engine</em>).
+The reflection system will automatically detect the <code>createInstance</code> and <code>parseInstance</code> functions if they are present.<br>
+<code>parseInstance</code> is required for scene object classes.</p>
 <p>A basic reflected class:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#pragma once
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;wv/Reflection/Reflection.h&gt;</span><span style="color:#75715e">
@@ -228,22 +114,20 @@ I would much rather have virtual functions that you override. That way you don&r
 </span></span><span style="display:flex;"><span>        printf( <span style="color:#e6db74">&#34;a cPrinter was created</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> );
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> cPrinter<span style="color:#f92672">*</span> <span style="color:#a6e22e">createInstance</span>    ( <span style="color:#66d9ef">void</span> )                  { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> cPrinter(); }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> cPrinter<span style="color:#f92672">*</span> <span style="color:#a6e22e">createInstanceJson</span>( nlohmann<span style="color:#f92672">::</span>json<span style="color:#f92672">&amp;</span> _json ) { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> cPrinter(); }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> cPrinter<span style="color:#f92672">*</span> <span style="color:#a6e22e">createInstance</span>( <span style="color:#66d9ef">void</span> )                  { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> cPrinter(); }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> cPrinter<span style="color:#f92672">*</span> <span style="color:#a6e22e">parseInstance</span> ( wv<span style="color:#f92672">::</span>sParseData<span style="color:#f92672">&amp;</span> _data ) { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> cPrinter(); }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>REFLECT_CLASS( cPrinter );
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// expands to 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wv::ClassReflect&lt;cPrinter&gt; wv::ClassReflector&lt;cPrinter&gt;::creator{ &#34;cPrinter&#34; };
-</span></span></span></code></pre></div><p>It also works on templated classes, although each template has to be reflected individually</p>
+</span></span></code></pre></div><p>It also works on templated classes, although each template has to be reflected individually.<br>
+A system that allows generic template reflection is planned, but is still an unsolved problem.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>REFLECT_CLASS( cPrinter<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>   );
 </span></span><span style="display:flex;"><span>REFLECT_CLASS( cPrinter<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span> );
 </span></span><span style="display:flex;"><span>REFLECT_CLASS( cPrinter<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>  );
 </span></span></code></pre></div><p>Creating an instance of a reflected class would then be done through the <code>cReflectionRegistry</code> class</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> classObject1 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedClass1&#34;</span> );
-</span></span><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> classObject2 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedClass2&#34;</span> );
-</span></span><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> classObject3 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedTemplate&lt;bool&gt;&#34;</span> );
-</span></span><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> classObject4 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedTemplate&lt;char&gt;&#34;</span> );
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> obj1 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedClass&#34;</span> );
+</span></span><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> obj2 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedTemplate&lt;bool&gt;&#34;</span> );
+</span></span><span style="display:flex;"><span>iSomeBaseClass<span style="color:#f92672">*</span> obj3 <span style="color:#f92672">=</span> wv<span style="color:#f92672">::</span>cReflectionRegistry<span style="color:#f92672">::</span>createClassInstance( <span style="color:#e6db74">&#34;cDerivedTemplate&lt;char&gt;&#34;</span> );
 </span></span></code></pre></div>
 </main>
 <script>
@@ -346,7 +230,7 @@ I would much rather have virtual functions that you override. That way you don&r
         
         "title": "Wyvern",
             "tags": [ "C\u002b\u002b",  "Engine", ],
-    "content": "\rWyvern is a 3D game engine developed from scratch by me.\nIts main goal is for me to learn about how engines function, but also to act as my main game engine because of my disappointment in already existing ones, such as Unity or Unreal Engine.\nDemo of a slightly older version of Wyvern\nThe source can be found on the github repository. NDA bound platform-specific code is kept on a private server.\nThis page will only outline some core features and explanations for certain design decisions.\nLibraries and frameworks Wyvern uses:\nLibrary Use Platforms GLFW Window Handling Windows SDL Window Handling All GLM Matrix Maths All Assimp Model Parsing All stb_image Image Parsing All ImGUI Debug UI All JoltPhysics Physics Windows MiniAudio Audio All nlohmann::json json parsing All XMake Build Tool The first thing to talk about is the build tool. Wyvern uses XMake, an open source Lua based build tool.\nIt\u0026rsquo;s my favourite build tool for a number of reasons, most notably because of how easy to use and set up it is.\nPlatforms The aim is to support Windows, Linux, Android, and some consoles (Nintendo 3DS, PlayStation, etc.). Currently it\u0026rsquo;s only been tested on Windows and WASM.\nUsing XMake I built up a relatively straight forward platforming-system that allows me to easily add more platforms and pick what it supports. Eg. Windows supports both GLFW and SDL, while WASM only supports SDL.\nThe Engine Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it\u0026rsquo;s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.\nA typical application implementation looks something like this;\nMyApplication.h Click to expand\r#pragma once #include \u0026lt;wv/Engine/Application.h\u0026gt; class cMyApplication : public wv::iApplication { public: cMyApplication() { } // Inherited via iApplication bool create ( void ) override; void run ( void ) override; void destroy( void ) override; }; MyApplication.cpp Click to expand\rbool cMyApplication::create( void ) { wv::EngineDesc engineDesc; engineDesc.windowWidth = 1280; engineDesc.windowHeight = 960; engineDesc.showDebugConsole = true; // create device context wv::ContextDesc ctxDesc; ctxDesc.deviceApi = wv::WV_DEVICE_CONTEXT_API_GLFW; ctxDesc.graphicsApi = wv::WV_GRAPHICS_API_OPENGL; ctxDesc.graphicsApiVersion.major = 3; ctxDesc.graphicsApiVersion.minor = 1; ctxDesc.name = \u0026#34;Wyvern Sandbox\u0026#34;; ctxDesc.width = engineDesc.windowWidth; ctxDesc.height = engineDesc.windowHeight; ctxDesc.allowResize = false; wv::iDeviceContext* deviceContext = wv::iDeviceContext::getDeviceContext( \u0026amp;ctxDesc ); deviceContext-\u0026gt;setSwapInterval( 0 ); // disable vsync // create graphics device wv::GraphicsDeviceDesc deviceDesc; deviceDesc.loadProc = deviceContext-\u0026gt;getLoadProc(); deviceDesc.pContext = deviceContext; wv::iGraphicsDevice* graphicsDevice = wv::iGraphicsDevice::createGraphicsDevice( \u0026amp;deviceDesc ); engineDesc.device.pContext = deviceContext; engineDesc.device.pGraphics = graphicsDevice; engineDesc.device.pAudio = new wv::AudioDevice( nullptr ); // set up modules wv::cFileSystem* fileSystem = new wv::cFileSystem(); fileSystem-\u0026gt;addDirectory( L\u0026#34;res/\u0026#34; ); fileSystem-\u0026gt;addDirectory( L\u0026#34;res/materials/\u0026#34; ); fileSystem-\u0026gt;addDirectory( L\u0026#34;res/meshes/\u0026#34; ); fileSystem-\u0026gt;addDirectory( L\u0026#34;res/shaders/\u0026#34; ); fileSystem-\u0026gt;addDirectory( L\u0026#34;res/textures/\u0026#34; ); engineDesc.systems.pFileSystem = fileSystem; engineDesc.systems.pShaderRegistry = new wv::cShaderRegistry( engineDesc.systems.pFileSystem, graphicsDevice ); // setup application state and scenes wv::cApplicationState* appState = new wv::cApplicationState(); engineDesc.pApplicationState = appState; wv::cSceneRoot* scene = appState-\u0026gt;loadScene( fileSystem, \u0026#34;res/scenes/defaultScene.json\u0026#34; ); appState-\u0026gt;addScene( scene ); // create engine m_pEngine = new wv::cEngine( \u0026amp;engineDesc ); return true; } Physics Wyvern uses the Jolt Physics Engine for real-time rigidbody physics.\nStress testing showed that it could handle about 6600 sphere bodies before going under 60 FPS. This is partly due to the not-optimal rendering however.\nReflection To allow for runtime scene object creation I developed a simple reflection system that takes advantage of static template variables.\nIt\u0026rsquo;s something I did earlier in my Reflection project with functions, but with classes.\nReflecting a class is as simple as using the REFLECT_CLASS() helper macro, and implementing the static createInstance and createInstanceJson functions. The macro expands into one line of code for you macro haters out there.\nSomething that I might change is the functions, as they\u0026rsquo;re currently required.\nI would much rather have virtual functions that you override. That way you don\u0026rsquo;t have to include createInstanceJson on classes that don\u0026rsquo;t need it.\nA basic reflected class:\n#pragma once #include \u0026lt;wv/Reflection/Reflection.h\u0026gt; class cPrinter { public: cPrinter() { printf( \u0026#34;a cPrinter was created\\n\u0026#34; ); } static cPrinter* createInstance ( void ) { return new cPrinter(); } static cPrinter* createInstanceJson( nlohmann::json\u0026amp; _json ) { return new cPrinter(); } } REFLECT_CLASS( cPrinter ); // expands to // wv::ClassReflect\u0026lt;cPrinter\u0026gt; wv::ClassReflector\u0026lt;cPrinter\u0026gt;::creator{ \u0026#34;cPrinter\u0026#34; }; It also works on templated classes, although each template has to be reflected individually\nREFLECT_CLASS( cPrinter\u0026lt;int\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;float\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;bool\u0026gt; ); Creating an instance of a reflected class would then be done through the cReflectionRegistry class\niSomeBaseClass* classObject1 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedClass1\u0026#34; ); iSomeBaseClass* classObject2 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedClass2\u0026#34; ); iSomeBaseClass* classObject3 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;bool\u0026gt;\u0026#34; ); iSomeBaseClass* classObject4 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;char\u0026gt;\u0026#34; ); ", 
+    "content": "\rWyvern is my personal 3D game engine that I am developing for two main reasons.\nTo teach myself more about engine and system development. disappointment in already existing ones, such as Unity or Unreal Engine. While it obviously doesn\u0026rsquo;t stand the test of immense power that those engines have, Wyvern allows me to more easily develop projects in the way I want to, that is, using actual code.\nDemo of a slightly older version of Wyvern\nThe source can be found on the github repository. NDA bound platform-specific code is kept on a private server.\nLibraries and frameworks Wyvern uses: GLFW SDL Assimp stb_image ImGUI JoltPhysics MiniAudio fkYAML Window\nHandling Window\nHandling Model\nParsing Image\nLoading Debug UI Physics Audio yaml\nparsing Wyvern also uses xmake, an open source Lua based build tool.\nPlatforms Currently only Windows is actively maintained, but WASM has worked, and a barebones PSVita implementation exists (officially licensed software and hardware)\nThe Engine Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.\nPhysics I chose to use Jolt Physics for real-time rigidbody physics. It\u0026rsquo;s implemented under a farily shallow wrapper to avoid any library-specific code leaking into Engine or Application code.\nReflection Since C++ doesn\u0026rsquo;t have native class reflection I developed my own system that takes advantage of static template variables.\nReflecting a class is as simple as using the REFLECT_CLASS() helper macro (which expands into actual code, unlike a certain AAA engine). The reflection system will automatically detect the createInstance and parseInstance functions if they are present.\nparseInstance is required for scene object classes.\nA basic reflected class:\n#pragma once #include \u0026lt;wv/Reflection/Reflection.h\u0026gt; class cPrinter { public: cPrinter() { printf( \u0026#34;a cPrinter was created\\n\u0026#34; ); } static cPrinter* createInstance( void ) { return new cPrinter(); } static cPrinter* parseInstance ( wv::sParseData\u0026amp; _data ) { return new cPrinter(); } } REFLECT_CLASS( cPrinter ); It also works on templated classes, although each template has to be reflected individually.\nA system that allows generic template reflection is planned, but is still an unsolved problem.\nREFLECT_CLASS( cPrinter\u0026lt;int\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;float\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;bool\u0026gt; ); Creating an instance of a reflected class would then be done through the cReflectionRegistry class\niSomeBaseClass* obj1 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedClass\u0026#34; ); iSomeBaseClass* obj2 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;bool\u0026gt;\u0026#34; ); iSomeBaseClass* obj3 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;char\u0026gt;\u0026#34; ); ", 
     "url": "https:\/\/portfolio.argo.re\/posts\/wyvern\/"
         },
     
@@ -382,7 +266,7 @@ I would much rather have virtual functions that you override. That way you don&r
         
         "title": "Beetlebot",
             "tags": [ "Game",  "C\u002b\u002b", ],
-    "content": "Beetlebot is a 4 level dungeon crawler. It was our first game project at PlaygroundSquad and made in the game engine TenGine.\nI was tasked with building most of the core systems powering the game, such as the physics, collision detection, enemy pathfinding, as well as providing platform support for the PlayStation 5.\nFor this project I implemented :\nPhysics and Collisions Pathfinding PlayStation®5 DualSense Haptic Feedback Video Playback Miscellaneous entity systems Entity Collisions Entity-Entity and Entity-Static World collisions.\nThe collision code is some 600 lines of code so I won\u0026rsquo;t post that here\nMasse Pathfinding Early pathfinding test with a navmesh. Early on it was just a basic floodfill algorithm\nYour browser does not support the video tag. The grid shown is an optimization to reduce the amount of navmesh lookups. cNavmesh.cpp int cNavmesh::getNodeClosestToPosition( const tg::cVector3f\u0026amp; _position ) { unsigned int closest = 0; float closest_distance = 100000.0f; int chunk_pos = worldToChunkIndex( _position ); if ( chunk_pos.y \u0026lt; 0 || chunk_pos.y \u0026gt;= m_chunk_count || chunk_pos.x \u0026lt; 0 || chunk_pos.x \u0026gt;= m_chunk_count ) return -1; std::vector\u0026lt;unsigned int\u0026gt;\u0026amp; chunk = m_node_chunks[ chunk_pos.y ][ chunk_pos.x ]; for ( size_t i = 0; i \u0026lt; chunk.size(); i++ ) { float distance = ( m_nodes[ chunk[ i ] ].position - _position ).length(); if ( distance \u0026gt; closest_distance ) continue; closest_distance = distance; closest = (unsigned int)chunk[ i ]; } return closest; } Video Playback System (sound warning) Test of the video playback system implemented on Windows. It was relatively easy to port it to the PlayStation 5 with minimal stutter.\nI claim no ownership of the Aperture logo. All rights go to The Valve Corporation\nYour browser does not support the video tag. cVideo.cpp cVideo::cVideo( const std::string\u0026amp; _filename ) { std::string dir_path = \u0026#34;data/videos/\u0026#34; + _filename + \u0026#34;/\u0026#34;; std::string frames_path = dir_path + \u0026#34;frames/\u0026#34;; std::string settings_path = dir_path + \u0026#34;movie-settings.json\u0026#34;; uint8_t* data = tg::cFileSystem::getInstance().fileLoad( settings_path ); if ( !data ) // failed to load settings return; nlohmann::json json_root = nlohmann::json::parse( data ); TG_MEMORY_FREE( data ); m_framerate = json_root.value( \u0026#34;framerate\u0026#34;, 24.0f ); std::string audio_path = json_root.value( \u0026#34;audio\u0026#34;, \u0026#34;\u0026#34; ); loadFrameList( dir_path ); loadFrames(); catchFrames(); if( audio_path != \u0026#34;\u0026#34; ) m_audio = cAudio::getInstance().createAudioFile( dir_path + audio_path ); m_sprite = new tg::cSprite(); m_sprite-\u0026gt;create( _name, { 1920.0f / 1.0f, 1080.0f / 2.0f, 0 }, { 1920, 1080 }, tg::Color::kWhite, nullptr ); m_sprite-\u0026gt;setTexCoords( 1.0f, 0.0f, 1.0f, 0.0f ); } ", 
+    "content": "Beetlebot is a 4 level dungeon crawler. It was our first game project at PlaygroundSquad and made in the game engine TenGine.\nI was tasked with building most of the core systems powering the game, such as the physics, collision detection, enemy pathfinding, as well as providing platform support for the PlayStation 5.\nFor this project I implemented :\nPhysics and Collisions Pathfinding PlayStation®5 DualSense Haptic Feedback Video Playback Miscellaneous entity systems Collisions System Entity-Entity and Entity-Environment collisions.\nEntity to Entity collision was done using basic sphere colliders applying forces to each other. Optimized with chunks to avoid unnecessary checks.\nEntity to environment collision was done in a way I developed myself to match the limitations of the engine. Because there is no built in physics in TenGine 5, I resorted to using the navmesh as both the floor and wall collider. Which when optimized could easily handle a few thousand entities.\nFor each entity, the system checks two things\nif the entity is standing on the navmesh if 1 is false; if the entity is above the navmesh by any distance if both are false, the entity is outside the navmesh bounds, i.e colliding with a wall.\nThis posed some limitations of course, a major one being that levels couldn\u0026rsquo;t have walls above another surface. Our level designers worked around that limitation.\nMasse Pathfinding The navigation used a somewhat naive approach to A* pathfinding, simply because it was something I hadn\u0026rsquo;t previously worked with. But with chunking and reusing paths from nearby entities it didn\u0026rsquo;t pose a serious bottleneck for performance, allowing at least 1500 entities simultaneously.\nEarly pathfinding test with a navmesh. Early on it was just a basic floodfill algorithm\nYour browser does not support the video tag. The grid shown is an optimization to reduce the amount of navmesh lookups. cNavmesh.cpp snippet Click to expand\rint cNavmesh::getNodeClosestToPosition( const tg::cVector3f\u0026amp; _position ) { unsigned int closest = 0; float closest_distance = 100000.0f; int chunk_pos = worldToChunkIndex( _position ); if ( chunk_pos.y \u0026lt; 0 || chunk_pos.y \u0026gt;= m_chunk_count || chunk_pos.x \u0026lt; 0 || chunk_pos.x \u0026gt;= m_chunk_count ) return -1; std::vector\u0026lt;unsigned int\u0026gt;\u0026amp; chunk = m_node_chunks[ chunk_pos.y ][ chunk_pos.x ]; for ( size_t i = 0; i \u0026lt; chunk.size(); i++ ) { float distance = ( m_nodes[ chunk[ i ] ].position - _position ).length(); if ( distance \u0026gt; closest_distance ) continue; closest_distance = distance; closest = (unsigned int)chunk[ i ]; } return closest; } Video Playback System (sound warning) For the intro sequences of Beetlebot I implemented a rudimentary video playback system. Because of time constraints I couldn\u0026rsquo;t port port an entire video library to the PlayStation 5, so the solution I wrote uses a series of raw textures. Not optimal but it did the job for the few seconds it was visible in game.\nI claim no ownership of the Aperture logo. All rights go to The Valve Corporation\nYour browser does not support the video tag. ", 
     "url": "https:\/\/portfolio.argo.re\/posts\/beetlebot\/"
         },
     

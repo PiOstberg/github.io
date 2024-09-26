@@ -60,7 +60,7 @@
 
 
 
-<img src="/images/2.jpg" alt="C&#43;&#43;">
+<img src="/images/8.jpg" alt="C&#43;&#43;">
 
                 
                 <div class="text">
@@ -82,7 +82,7 @@
 
 
 
-<img src="/images/4.jpg" alt="Engine">
+<img src="/images/10.jpg" alt="Engine">
 
                 
                 <div class="text">
@@ -104,7 +104,7 @@
 
 
 
-<img src="/images/5.jpg" alt="Game">
+<img src="/images/10.jpg" alt="Game">
 
                 
                 <div class="text">
@@ -209,7 +209,7 @@
         
         "title": "Wyvern",
             "tags": [ "C\u002b\u002b",  "Engine", ],
-    "content": "\rWyvern is my personal 3D game engine that I am developing for two main reasons.\nTo teach myself more about engine and system development. disappointment in already existing ones, such as Unity or Unreal Engine. While it obviously doesn\u0026rsquo;t stand the test of immense power that those engines have, Wyvern allows me to more easily develop projects in the way I want to, that is, using actual code.\nDemo of a slightly older version of Wyvern\nThe source can be found on the github repository. NDA bound platform-specific code is kept on a private server.\nLibraries and frameworks Wyvern uses: GLFW SDL Assimp stb_image ImGUI JoltPhysics MiniAudio fkYAML Window\nHandling Window\nHandling Model\nParsing Image\nLoading Debug UI Physics Audio yaml\nparsing Wyvern also uses xmake, an open source Lua based build tool.\nPlatforms Currently only Windows is actively maintained, but WASM has worked, and a barebones PSVita implementation exists (officially licensed software and hardware)\nThe Engine Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.\nPhysics I chose to use Jolt Physics for real-time rigidbody physics. It\u0026rsquo;s implemented under a farily shallow wrapper to avoid any library-specific code leaking into Engine or Application code.\nReflection Since C++ doesn\u0026rsquo;t have native class reflection I developed my own system that takes advantage of static template variables.\nReflecting a class is as simple as using the REFLECT_CLASS() helper macro (which expands into actual code, unlike a certain AAA engine). The reflection system will automatically detect the createInstance and parseInstance functions if they are present.\nparseInstance is required for scene object classes.\nA basic reflected class:\n#pragma once #include \u0026lt;wv/Reflection/Reflection.h\u0026gt; class cPrinter { public: cPrinter() { printf( \u0026#34;a cPrinter was created\\n\u0026#34; ); } static cPrinter* createInstance( void ) { return new cPrinter(); } static cPrinter* parseInstance ( wv::sParseData\u0026amp; _data ) { return new cPrinter(); } } REFLECT_CLASS( cPrinter ); It also works on templated classes, although each template has to be reflected individually.\nA system that allows generic template reflection is planned, but is still an unsolved problem.\nREFLECT_CLASS( cPrinter\u0026lt;int\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;float\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;bool\u0026gt; ); Creating an instance of a reflected class would then be done through the cReflectionRegistry class\niSomeBaseClass* obj1 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedClass\u0026#34; ); iSomeBaseClass* obj2 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;bool\u0026gt;\u0026#34; ); iSomeBaseClass* obj3 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;char\u0026gt;\u0026#34; ); ", 
+    "content": "\rWyvern is my personal 3D game engine that I am developing for two main reasons.\nTo teach myself more about engine and system development. disappointment in already existing ones, such as Unity or Unreal Engine. While it obviously doesn\u0026rsquo;t stand the test of immense power that those engines have, Wyvern allows me to more easily develop projects in the way I want to, that is, using actual code.\nDemo of a slightly older version of Wyvern\nThe source can be found on the github repository. NDA bound platform-specific code is kept on a private server.\nLibraries and frameworks Wyvern uses: GLFW SDL Assimp stb_image ImGUI JoltPhysics MiniAudio fkYAML Window\nHandling Window\nHandling Model\nParsing Image\nLoading Debug UI Physics Audio yaml\nparsing Wyvern also uses xmake, an open source Lua based build tool.\nPlatforms Currently only Windows is actively maintained, but WASM has worked, and a barebones PSVita implementation exists (officially licensed software and hardware)\nThe Engine Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.\nAll of Anor Londo from Dark Souls being rendered as a static mesh object.\nPhysics I chose to use Jolt Physics for real-time rigidbody physics. It\u0026rsquo;s implemented under a farily shallow wrapper to avoid any library-specific code leaking into Engine or Application code.\nReflection Since C++ doesn\u0026rsquo;t have native class reflection I developed my own system that takes advantage of static template variables.\nReflecting a class is as simple as using the REFLECT_CLASS() helper macro (which expands into actual code, unlike a certain AAA engine). The reflection system will automatically detect the createInstance and parseInstance functions if they are present.\nparseInstance is required for scene object classes.\nA basic reflected class:\n#pragma once #include \u0026lt;wv/Reflection/Reflection.h\u0026gt; class cPrinter { public: cPrinter() { printf( \u0026#34;a cPrinter was created\\n\u0026#34; ); } static cPrinter* createInstance( void ) { return new cPrinter(); } static cPrinter* parseInstance ( wv::sParseData\u0026amp; _data ) { return new cPrinter(); } } REFLECT_CLASS( cPrinter ); It also works on templated classes, although each template has to be reflected individually.\nA system that allows generic template reflection is planned, but is still an unsolved problem.\nREFLECT_CLASS( cPrinter\u0026lt;int\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;float\u0026gt; ); REFLECT_CLASS( cPrinter\u0026lt;bool\u0026gt; ); Creating an instance of a reflected class would then be done through the cReflectionRegistry class\niSomeBaseClass* obj1 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedClass\u0026#34; ); iSomeBaseClass* obj2 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;bool\u0026gt;\u0026#34; ); iSomeBaseClass* obj3 = wv::cReflectionRegistry::createClassInstance( \u0026#34;cDerivedTemplate\u0026lt;char\u0026gt;\u0026#34; ); ", 
     "url": "https:\/\/portfolio.argo.re\/posts\/wyvern\/"
         },
     

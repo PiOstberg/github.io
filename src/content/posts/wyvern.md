@@ -28,6 +28,7 @@ While it obviously doesn't stand the test of immense power that those engines ha
 
 [Demo of a slightly older version of Wyvern](https://argore.itch.io/wyvern-demo?password=psq)
 
+
 The source can be found on [the github repository](https://github.com/argoreofficial/wyvern). NDA bound platform-specific code is kept on a private server.  
 
 ### Libraries and frameworks Wyvern uses:
@@ -43,6 +44,15 @@ Currently only Windows is actively maintained, but WASM has worked, and a barebo
 
 ## The Engine
 Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.
+
+![](/images/wyvern/anorlondo.png)  
+<sup>All of Anor Londo from Dark Souls being rendered as a static mesh object.</sup>
+
+<div class="video-container">
+    <div class="auto-resizable-iframe">
+        <div><iframe frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/UpJr3EC53gM?si=qSCGARza-jtu-356"></iframe></div>
+    </div>
+</div>
 
 ## Physics
 

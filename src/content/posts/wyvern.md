@@ -33,9 +33,9 @@ The source can be found on [the github repository](https://github.com/argoreoffi
 
 ### Libraries and frameworks Wyvern uses:
 
-| GLFW | SDL | Assimp | stb_image | ImGUI | JoltPhysics | MiniAudio | fkYAML |
-|-|-|-|-|-|-|-|-|
-| Window<br>Handling | Window<br>Handling | Model<br>Parsing | Image<br>Loading | Debug UI | Physics | Audio | yaml<br>parsing |
+| GLFW | SDL | Assimp | stb_image | ImGUI | JoltPhysics | MiniAudio | fkYAML | json11 |
+|-|-|-|-|-|-|-|-|-|
+| Window<br>Handling | Window<br>Handling | Model<br>Parsing | Image<br>Loading | Debug UI | Physics | Audio | yaml<br>parsing | json<br>parsing |
 
 Wyvern also uses **[xmake](https://xmake.io/)**, an open source Lua based build tool.  
 
@@ -59,6 +59,12 @@ Wyvern uses a configuration setup, where the developer implements the wv::iAppli
 I chose to use Jolt Physics for real-time rigidbody physics. It's implemented under a farily shallow wrapper to avoid any library-specific code leaking into Engine or Application code.
 
 ![](/images/wyvern/physicsballs.png)
+
+<div class="video-container">
+    <div class="auto-resizable-iframe">
+        <div><iframe frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/SPNBPj9qqAc?si=0peLcrDfwbRkxctB"></iframe></div>
+    </div>
+</div>
 
 ## Reflection
 

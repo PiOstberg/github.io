@@ -19,31 +19,45 @@ th, td {
 }
 </style>
 
-Wyvern is my personal 3D game engine that I am developing for two main reasons.
-1. To teach myself more about engine and system development.
-2. disappointment in already existing ones, such as Unity or Unreal Engine.
+<div class="marquee" style="--marquee-items: 5">
+  <img class="marquee__item" style="--n: 0" src="/images/wyvern/marquee-physics.png" alt="">
+  <img class="marquee__item" style="--n: 1" src="/images/wyvern/marquee-physics2.png" alt="">
+  <img class="marquee__item" style="--n: 2" src="/images/wyvern/marquee-anor.png" alt="">
+  <img class="marquee__item" style="--n: 3" src="/images/wyvern/marquee-level.png" alt="">
+  <img class="marquee__item" style="--n: 4" src="/images/wyvern/marquee-starwars.png" alt="">
+</div>
+<br>
 
-While it obviously doesn't stand the test of immense power that those engines have, Wyvern allows me to more easily develop projects in the way I want to, that is, using actual code.  
-
-
-[Demo of a slightly older version of Wyvern](https://argore.itch.io/wyvern-demo?password=psq)
-
+**Wyvern** is a 3D Game Engine developed entirely by me. It's built to support multiple backends with Windows and PSVita* support.  
+<sup>* officially licensed developers only</sup>  
+<sup>WASM demo can be found [here](https://argore.itch.io/wyvern-demo?password=psq) but is no longer actively supported</sup>
 
 The source can be found on [the github repository](https://github.com/argoreofficial/wyvern). NDA bound platform-specific code is kept on a private server.  
+Wyvern uses **[xmake](https://xmake.io/)**, an open source Lua based build tool.  
 
-### Libraries and frameworks Wyvern uses:
+# Table of Contents
+1. [The Engine](#theengine)
+1. [Rendering](#rendering)
+1. [Physics](#physics)
+1. [Reflection](#reflection)
 
-| GLFW | SDL | Assimp | stb_image | ImGUI | JoltPhysics | MiniAudio | fkYAML | json11 |
-|-|-|-|-|-|-|-|-|-|
-| Window<br>Handling | Window<br>Handling | Model<br>Parsing | Image<br>Loading | Debug UI | Physics | Audio | yaml<br>parsing | json<br>parsing |
+<br><br>
 
-Wyvern also uses **[xmake](https://xmake.io/)**, an open source Lua based build tool.  
+# The Engine <a name="theengine"></a>
+Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any runtime classes. Ownership of everything is then passed to the engine.
 
-## Platforms
-Currently only Windows is actively maintained, but WASM has worked, and a barebones PSVita implementation exists (officially licensed software and hardware)
+<br><br>
 
-## The Engine
-Wyvern uses a configuration setup, where the developer implements the wv::iApplication interface. This is used to set up and configure the engine and it’s subsystems, as well as inform the reflection system about any custom classes they may have implemented. Ownership of everything is then passed to the engine.
+# Rendering <a name="rendering"></a>
+Currently only OpenGL 4.6 is available. However the API is backend-non-specific as to allow multiple implementations, such as the PSVita.  
+Wyvern supports most rendering types (direct, instanced, indirect). Currently render calls are done through the cMeshResource class, meaning there is one draw call per mesh object. This will be reworked to use *Shader Draw Buckets* which will reduce the draw call count to one per shader.
+
+Features include:
+* Singular/Monolithic vertex and index buffer
+* Bindless resources
+* Vertex Pulling
+* Multi-Indirect Drawing
+* Deferred Shading
 
 ![](/images/wyvern/anorlondo.png)  
 <sup>All of Anor Londo from Dark Souls being rendered as a static mesh object.</sup>
@@ -54,7 +68,9 @@ Wyvern uses a configuration setup, where the developer implements the wv::iAppli
     </div>
 </div>
 
-## Physics
+<br><br>
+
+# Physics <a name="physics"></a>
 
 I chose to use Jolt Physics for real-time rigidbody physics. It's implemented under a farily shallow wrapper to avoid any library-specific code leaking into Engine or Application code.
 
@@ -66,9 +82,11 @@ I chose to use Jolt Physics for real-time rigidbody physics. It's implemented un
     </div>
 </div>
 
-## Reflection
+<br><br>
 
-Since C++ doesn't have native class reflection I developed my own system that takes advantage of static template variables.  
+# Reflection <a name="reflection"></a>
+
+Because C++ doesn't have native class reflection I developed my own system that takes advantage of static template variables. Allowing classes to be reflected at near compile-time, with only some work being done at application startup.
 
 Reflecting a class is as simple as using the `REFLECT_CLASS()` helper macro (which expands into actual code, *unlike a certain AAA engine*).
 The reflection system will automatically detect the `createInstance` and `parseInstance` functions if they are present.  
@@ -94,7 +112,6 @@ public:
 REFLECT_CLASS( cPrinter );
 ```
 It also works on templated classes, although each template has to be reflected individually.  
-A system that allows generic template reflection is planned, but is still an unsolved problem.  
 ```cpp
 REFLECT_CLASS( cPrinter<int>   );
 REFLECT_CLASS( cPrinter<float> );

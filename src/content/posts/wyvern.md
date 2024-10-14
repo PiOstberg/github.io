@@ -67,6 +67,8 @@ Features include:
         <div><iframe frameborder="0" allowfullscreen="" src="https://www.youtube.com/embed/UpJr3EC53gM?si=qSCGARza-jtu-356"></iframe></div>
     </div>
 </div>
+<sup>Slightly older video showcasing the rendering before multi-indirect drawing was implemented.</sup>
+
 
 <br><br>
 

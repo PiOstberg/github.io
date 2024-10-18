@@ -1,6 +1,6 @@
 baseURL = 'https://portfolio.argo.re/'
 languageCode = 'en-us'
-title = 'Pi Portfolio'
+title = 'PiÖ Portfolio'
 theme = 'quint'
 summaryLength = 1
 
@@ -10,7 +10,7 @@ publishDir = "../"
     email = 'ostbergpi@gmail.com'
     css = ["css/custom.css"]
     icon = 'https://raw.githubusercontent.com/ArgoreOfficial/Wyvern/main/resources/icon.png&style=for-the-badge'
-    description = 'Systems & Engine Programmer'
+    description = 'Engine & Graphics Programmer'
 
 [markup.goldmark.renderer]
     unsafe = true

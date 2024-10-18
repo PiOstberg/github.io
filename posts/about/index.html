@@ -34,50 +34,55 @@
     </div>
 </header>
 
-    <section class="hero">
-        <h1>UnrealEngine5</h1>
-        <form id="search"
-    action='' method="get" class="form-inline">
-    <label hidden for="search-input">Search site</label>
-    <input type="text" id="search-input" name="query"
-    placeholder="Type here to search">
-    <button type="submit" value="search">Search</button>
-</form>
 
-    </section>
-    <main>
-        <p></p>
-        <ul>
-            
-            <div class="blog-cards">
-    
-        <div class="card">
-            <a href="https://portfolio.argo.re/posts/inthechamber/">
-                
-                    <img class="card-img" src="/images/thumb/inthechamber.png" alt="UnrealEngine5">
-                
-                <div class="text">
-                    <h1>In the Chamber</h1>
-                    <p class="small">Twin-Stick Unlooter Shooter</p>
-                </div>
-            </a>
-            <div class="card-tag-container">
-                
-                    <a href="/tags/game"><img src="https://img.shields.io/badge/Game-EEEEEE"></a>
-                
-                    <a href="/tags/c&#43;&#43;"><img src="https://img.shields.io/badge/C&#43;&#43;-EEEEEE"></a>
-                
-                    <a href="/tags/unrealengine5"><img src="https://img.shields.io/badge/UnrealEngine5-EEEEEE"></a>
-                
-            </div>
-        </div>
-    
-</div>
 
-            
-            
-        </main>
-    <footer>
+<section class="hero"
+    style='background-image: url("/images/banner/wyvern.png"); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%;'
+    id="heroSection" onload="adjustTextColor(this)">
+    <div>
+        <h1 id="textOverlay">About</h1>
+        <h2 class="subtitle">About Me</h2>
+    </div>
+</section>
+<main class="post">
+    
+</main>
+<script>
+    function adjustTextColor(sectionId) {
+        const section = document.getElementById(sectionId);
+        const style = window.getComputedStyle(section);
+        const imageUrl = style.backgroundImage.slice(4, -1).replace(/["']/g, "");
+        const image = new Image();
+        image.src = imageUrl;
+        image.onload = function () {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = image.width;
+            canvas.height = image.height;
+            context.drawImage(image, 0, 0, image.width, image.height);
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            let r = 0, g = 0, b = 0;
+            for (let i = 0; i < data.length; i += 4) {
+                r += data[i];
+                g += data[i + 1];
+                b += data[i + 2];
+            }
+            r /= (data.length / 4);
+            g /= (data.length / 4);
+            b /= (data.length / 4);
+            const brightness = Math.sqrt(0.299 * r * r + 0.587 * g * g + 0.114 * b * b);
+            const textColor = brightness > 128 ? 'black' : 'white';
+            const shadowColor = brightness > 128 ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)';
+            const textOverlay = document.getElementById('textOverlay');
+            textOverlay.style.color = textColor;
+            textOverlay.style.textShadow = `0 0 5px ${shadowColor}, 0 0 10px ${shadowColor}, 0 0 20px ${shadowColor}, 0 0 40px ${shadowColor}, 0 0 80px ${shadowColor}, 0 0 90px ${shadowColor}, 0 0 100px ${shadowColor}, 0 0 150px ${shadowColor}`;
+        };
+    }
+    
+    adjustTextColor('heroSection');
+</script>
+<footer>
     <div class="logo">
         <a href="https://portfolio.argo.re/">
             <img src="/images/logo.png" alt="Site Logo">
@@ -91,6 +96,15 @@
     </nav>
     <script>
     window.store = {
+    
+    
+    "https:\/\/portfolio.argo.re\/posts\/about\/": {
+        
+        "title": "About",
+            "tags": [],
+    "content": "", 
+    "url": "https:\/\/portfolio.argo.re\/posts\/about\/"
+        },
     
     
     "https:\/\/portfolio.argo.re\/posts\/": {
